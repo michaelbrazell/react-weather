@@ -63,8 +63,8 @@
 
 	var Main = __webpack_require__(222);
 	var Weather = __webpack_require__(224);
-	var About = __webpack_require__(227);
-	var Examples = __webpack_require__(228);
+	var About = __webpack_require__(225);
+	var Examples = __webpack_require__(226);
 
 	ReactDOM.render(React.createElement(
 	  Router,
@@ -25507,13 +25507,29 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var WeatherForm = __webpack_require__(225);
-	var WeatherMessage = __webpack_require__(226);
+	var WeatherForm = __webpack_require__(227);
+	var WeatherMessage = __webpack_require__(228);
 
 	var Weather = React.createClass({
 	  displayName: 'Weather',
 
+	  getInitialState: function getInitialState() {
+	    return {
+	      location: 'Boston',
+	      temp: '32'
+	    };
+	  },
+	  handleSearch: function handleSearch(location) {
+	    this.setState({
+	      location: location,
+	      temp: 23
+	    });
+	  },
 	  render: function render() {
+	    var _state = this.state;
+	    var temp = _state.temp;
+	    var location = _state.location; // Uses ES6 destructuring. Equal to this.state.temp or this.state.location;
+
 	    return React.createElement(
 	      'div',
 	      null,
@@ -25522,8 +25538,8 @@
 	        null,
 	        'Weather Component'
 	      ),
-	      React.createElement(WeatherForm, null),
-	      React.createElement(WeatherMessage, null)
+	      React.createElement(WeatherForm, { onSearch: this.handleSearch }),
+	      React.createElement(WeatherMessage, { temp: temp, location: location })
 	    );
 	  }
 	});
@@ -25532,63 +25548,6 @@
 
 /***/ },
 /* 225 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var React = __webpack_require__(1);
-
-	var WeatherForm = React.createClass({
-	  displayName: "WeatherForm",
-
-	  render: function render() {
-	    return React.createElement(
-	      "div",
-	      null,
-	      React.createElement(
-	        "form",
-	        null,
-	        React.createElement("input", { type: "text" }),
-	        React.createElement(
-	          "button",
-	          null,
-	          "Get Weather"
-	        )
-	      )
-	    );
-	  }
-	});
-
-	module.exports = WeatherForm;
-
-/***/ },
-/* 226 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var React = __webpack_require__(1);
-
-	var WeatherMessage = React.createClass({
-	  displayName: 'WeatherMessage',
-
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'p',
-	        null,
-	        'This is a Message About the Weather'
-	      )
-	    );
-	  }
-	});
-
-	module.exports = WeatherMessage;
-
-/***/ },
-/* 227 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25610,7 +25569,7 @@
 	module.exports = About;
 
 /***/ },
-/* 228 */
+/* 226 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25630,6 +25589,80 @@
 	});
 
 	module.exports = Examples;
+
+/***/ },
+/* 227 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	var WeatherForm = React.createClass({
+	  displayName: 'WeatherForm',
+
+	  onFormSubmit: function onFormSubmit(e) {
+	    e.preventDefault();
+	    var location = this.refs.location.value;
+	    if (location.length > 0) {
+	      this.refs.location.value = '';
+	      this.props.onSearch(location);
+	    }
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'form',
+	        { onSubmit: this.onFormSubmit },
+	        React.createElement('input', { type: 'text', ref: 'location' }),
+	        React.createElement(
+	          'button',
+	          null,
+	          'Get Weather'
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = WeatherForm;
+
+/***/ },
+/* 228 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	var WeatherMessage = React.createClass({
+	  displayName: 'WeatherMessage',
+
+	  render: function render() {
+	    var _props = this.props;
+	    var temp = _props.temp;
+	    var location = _props.location; // ES6 destructuring. Equal to this.props.temp; this.props.location;
+
+	    var temp = this.props.temp;
+	    var location = this.props.location;
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'p',
+	        null,
+	        'It is currently ',
+	        temp,
+	        ' in ',
+	        location
+	      )
+	    );
+	  }
+	});
+
+	module.exports = WeatherMessage;
 
 /***/ }
 /******/ ]);
