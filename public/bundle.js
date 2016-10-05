@@ -25464,7 +25464,8 @@
 
 	var _require = __webpack_require__(159);
 
-	var Link = _require.Link; // Destructured ES6, require('react-router').link;
+	var Link = _require.Link;
+	var IndexLink = _require.IndexLink; // Destructured ES6, require('react-router').link;
 
 	var Nav = React.createClass({
 	  displayName: 'Nav',
@@ -25479,18 +25480,18 @@
 	        'Nav Component'
 	      ),
 	      React.createElement(
-	        Link,
-	        { to: '/' },
+	        IndexLink,
+	        { to: '/', activeClassName: 'active', activeStyle: { fontWeight: 'Bold' } },
 	        'Get Weather'
 	      ),
 	      React.createElement(
 	        Link,
-	        { to: '/about' },
+	        { to: '/about', activeClassName: 'active', activeStyle: { fontWeight: 'Bold' } },
 	        'About'
 	      ),
 	      React.createElement(
 	        Link,
-	        { to: '/examples' },
+	        { to: '/examples', activeClassName: 'active', activeStyle: { fontWeight: 'Bold' } },
 	        'Examples'
 	      )
 	    );
