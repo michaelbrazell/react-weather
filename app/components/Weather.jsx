@@ -17,7 +17,7 @@ var Weather = React.createClass({
       so that 'this' inside the function returns this.setState (weather -> handleSearch)
     */
     var that = this;
-
+    
     this.setState({isLoading: true});
 
     openWeatherMap.getTemp(location).then(function (temp) {
